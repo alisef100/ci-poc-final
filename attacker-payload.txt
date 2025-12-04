@@ -1,0 +1,5 @@
+This file demonstrates attacker control over the repository.
+If the vulnerability is exploited, attacker can:
+1. Read all secrets
+2. Modify protected branches
+3. Inject malicious code
