@@ -1,0 +1,45 @@
+name: Vulnerable CI Pipeline
+on:
+  pull_request_target:          # ⚠️ DANGER: Runs in base repo context
+    types: [opened, reopened]
+
+jobs:
+  security-breach:
+    runs-on: ubuntu-latest
+    steps:
+      # ⚠️ CRITICAL: Checks out attacker's code from fork
+      - name: Checkout Attacker Code
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      # 🚨 PROOF: Attacker's code executes in privileged context
+      - name: Execute Untrusted Code
+        run: |
+          echo "╔═══════════════════════════════════════════════╗"
+          echo "║    CRITICAL CI/CD VULNERABILITY - LIVE POC    ║"
+          echo "╚═══════════════════════════════════════════════╝"
+          echo ""
+          echo "🔴 VULNERABILITY: pull_request_target exploitation"
+          echo "✅ STATUS: ACTIVE AND EXPLOITING"
+          echo ""
+          echo "📊 PRIVILEGED CONTEXT ACCESSED:"
+          echo "   • Repository: ${{ github.repository }}"
+          echo "   • Event: ${{ github.event_name }}"
+          echo "   • Fork SHA: ${{ github.event.pull_request.head.sha }}"
+          echo "   • GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN != '' }}"
+          echo ""
+          echo "🎯 ATTACKER CAPABILITIES:"
+          echo "   ✅ Read ALL repository secrets"
+          echo "   ✅ Write to protected branches"
+          echo "   ✅ Modify CI/CD configurations"
+          echo "   ✅ Inject backdoor into production"
+          echo "   ✅ Exfiltrate credentials"
+          echo ""
+          echo "⏳ Simulating attack execution..."
+          sleep 15
+          echo ""
+          echo "✅ EXPLOIT SUCCESSFUL"
+          echo "╔═══════════════════════════════════════════════╗"
+          echo "║     VULNERABILITY CONFIRMED - PATCH REQUIRED  ║"
+          echo "╚═══════════════════════════════════════════════╝"
